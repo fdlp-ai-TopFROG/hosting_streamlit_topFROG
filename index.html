@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your App Title</title>
+    <title>Top Frog</title>
     <style>
         body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: sans-serif; }
         iframe { width: 100%; height: 100%; border: none; display: block; }
         
-        /* Floating Toggle Button Styles */
         .theme-toggle {
             position: fixed;
             bottom: 20px;
@@ -35,21 +34,15 @@
     </style>
 </head>
 <body>
-    <!-- The Floating Button -->
     <button id="toggleBtn" class="theme-toggle">🌙 Switch to Dark Mode</button>
 
-    <!-- The Streamlit App -->
-    <!-- Replace the URL below with your actual Streamlit app link -->
-    <iframe id="appFrame" src="https://topfrog.streamlit.app/?embed=true&theme=light" allow="camera; microphone; geolocation"></iframe>
+    <iframe id="appFrame" src="https://topfrog.streamlit.app/?embed=true&amp;theme=light" allow="camera; microphone; geolocation"></iframe>
 
     <script>
         const btn = document.getElementById('toggleBtn');
         const frame = document.getElementById('appFrame');
-        
-        // IMPORTANT: Replace this string with your actual Streamlit app link!
         const baseUrl = "https://topfrog.streamlit.app/?embed=true";
-        
-        let isDark = false; // Starts in light mode
+        let isDark = false;
 
         btn.addEventListener('click', () => {
             isDark = !isDark;

@@ -3,16 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="/browser_icon.png">
-    <!-- 1. CHANGE THIS: Put your actual app's name here -->
-    <title>TopFROG</title> 
+    <title>Your App Title</title>
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; }
-        iframe { width: 100%; height: 100%; border: none; }
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: sans-serif; }
+        iframe { width: 100%; height: 100%; border: none; display: block; }
+        
+        /* Floating Toggle Button Styles */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #262730;
+            color: #FAFAFA;
+            border: 1px solid #4B4C53;
+            padding: 10px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            z-index: 1000;
+            font-size: 14px;
+            transition: 0.3s ease;
+        }
+        .theme-toggle:hover {
+            transform: scale(1.05);
+        }
+        .theme-toggle.light-mode-btn {
+            background: #FFFFFF;
+            color: #31333F;
+            border: 1px solid #CCCCCC;
+        }
     </style>
 </head>
 <body>
-    <!-- 2. CHANGE THIS: Replace with your actual Streamlit link, but keep the ?embed=true at the end -->
-    <iframe src="https://topfrog.streamlit.app/?embed=true" allow="camera; microphone; geolocation"></iframe>
+    <!-- The Floating Button -->
+    <button id="toggleBtn" class="theme-toggle">🌙 Switch to Dark Mode</button>
+
+    <!-- The Streamlit App -->
+    <!-- Replace the URL below with your actual Streamlit app link -->
+    <iframe id="appFrame" src="https://your-app-name.streamlit.app/?embed=true&theme=light" allow="camera; microphone; geolocation"></iframe>
+
+    <script>
+        const btn = document.getElementById('toggleBtn');
+        const frame = document.getElementById('appFrame');
+        
+        // IMPORTANT: Replace this string with your actual Streamlit app link!
+        const baseUrl = "https://your-app-name.streamlit.app/?embed=true";
+        
+        let isDark = false; // Starts in light mode
+
+        btn.addEventListener('click', () => {
+            isDark = !isDark;
+            if (isDark) {
+                btn.textContent = "☀️ Switch to Light Mode";
+                btn.classList.add('light-mode-btn');
+                frame.src = baseUrl + "&theme=dark";
+            } else {
+                btn.textContent = "🌙 Switch to Dark Mode";
+                btn.classList.remove('light-mode-btn');
+                frame.src = baseUrl + "&theme=light";
+            }
+        });
+    </script>
 </body>
 </html>

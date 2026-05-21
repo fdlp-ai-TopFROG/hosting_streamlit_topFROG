@@ -3,65 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <link rel="icon" type="image/x-icon" href="/browser_icon.png">
     <title>TopFROG</title>
-    
-    <link rel="icon" type="image/png" href="browser_icon.png">
-    
     <style>
-        /* Blends the background so there is no awkward border */
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: sans-serif; background-color: #0E1117; }
-        iframe { width: 100vw; height: 100vh; border: none; display: block; }
-        
-        /* FIX 4: Moved the toggle button to the top right */
-        .theme-toggle {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            background: #262730;
-            color: #FAFAFA;
-            border: 1px solid #4B4C53;
-            padding: 8px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-            z-index: 1000;
-            font-size: 12px;
-            transition: 0.3s ease;
-        }
-        .theme-toggle:hover {
-            transform: scale(1.05);
-        }
-        .theme-toggle.light-mode-btn {
-            background: #FFFFFF;
-            color: #31333F;
-            border: 1px solid #CCCCCC;
-        }
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+        iframe { width: 100%; height: 100%; border: none; }
     </style>
 </head>
 <body>
-    <button id="toggleBtn" class="theme-toggle">🌙 Switch to Dark Mode</button>
-
-    <iframe id="appFrame" src="https://topfrog.streamlit.app/?embed=true&amp;theme=light" allow="camera; microphone; geolocation"></iframe>
-
-    <script>
-        const btn = document.getElementById('toggleBtn');
-        const frame = document.getElementById('appFrame');
-        const baseUrl = "https://topfrog.streamlit.app/?embed=true";
-        let isDark = false;
-
-        btn.addEventListener('click', () => {
-            isDark = !isDark;
-            if (isDark) {
-                btn.textContent = "☀️ Switch to Light Mode";
-                btn.classList.add('light-mode-btn');
-                frame.src = baseUrl + "&theme=dark";
-            } else {
-                btn.textContent = "🌙 Switch to Dark Mode";
-                btn.classList.remove('light-mode-btn');
-                frame.src = baseUrl + "&theme=light";
-            }
-        });
-    </script>
+    <iframe src="https://topfrog.streamlit.app/?embed=true" allow="camera; microphone; geolocation"></iframe>
 </body>
 </html>

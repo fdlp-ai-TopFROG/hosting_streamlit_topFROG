@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TopFROG | AI-Driven Credit & Climate Intelligence</title>
+    <link rel="icon" type="image/x-icon" href="browser_icon_bg.png">
     
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
@@ -13,83 +14,48 @@
     <link rel="stylesheet" href="css/homepage.css">
 
     <style>
-        /* TopFROG Specific Layout Styles (Inherits Source Sans Pro from variables.css) */
+        /* Force MSC Typography and overrides */
         body {
-            background-color: #ffffff;
+            font-family: var(--font-family) !important;
             color: var(--text-color);
+            background-color: #ffffff;
+            -webkit-font-smoothing: antialiased;
         }
-        
+
+        /* Bridge Styles: Mapping Wireframe Layout to MSC Variables */
         .text-teal { color: var(--secondary-color) !important; }
         .text-dark-blue { color: var(--primary-color) !important; }
         .bg-light-gray { background-color: var(--background-color); }
 
-        /* Buttons */
-        .btn-primary-dark {
-            background-color: var(--primary-color);
-            color: #ffffff;
-            font-weight: 600;
-            border-radius: var(--border-radius);
-            padding: 10px 24px;
-            border: 2px solid var(--primary-color);
-            transition: 0.3s;
-            text-decoration: none;
+        /* MSC Native Button Mimicry for Secondary Buttons */
+        .btn-outline-msc {
             display: inline-block;
-        }
-        .btn-primary-dark:hover { background-color: #ffffff; color: var(--primary-color); }
-
-        .btn-outline-dark {
             background-color: transparent;
             color: var(--primary-color);
-            font-weight: 600;
+            font-weight: var(--font-weight-six);
             border-radius: var(--border-radius);
-            padding: 10px 24px;
+            padding: 12px 30px;
             border: 2px solid var(--primary-color);
             transition: 0.3s;
             text-decoration: none;
-            display: inline-block;
+            font-size: 18px;
         }
-        .btn-outline-dark:hover { background-color: var(--primary-color); color: #ffffff; }
+        .btn-outline-msc:hover { background-color: var(--primary-color); color: #ffffff; }
 
-        .btn-orange {
-            background-color: var(--active-btn);
-            color: #ffffff;
-            font-weight: 600;
-            border-radius: var(--border-radius);
-            padding: 12px 30px;
-            border: none;
-            transition: 0.3s;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .btn-orange:hover { background-color: #e06512; color: #ffffff; }
-
-        /* Navbar */
-        .navbar { padding: 20px 0; background: #ffffff; }
-        .nav-link { color: var(--primary-color); font-weight: 600; margin: 0 10px; }
-        .navbar-brand img { height: 45px; }
-
-        /* Hero Section */
-        .hero-section {
-            padding: 80px 0 60px;
-            background: radial-gradient(circle at top left, #f0f8ff, transparent 50%);
-        }
-        .hero-title { font-size: 3.5rem; line-height: 1.2; margin-bottom: 20px; color: var(--primary-color); font-weight: 700; }
-        .hero-subtitle { font-size: 1.2rem; color: var(--text-color); margin-bottom: 40px; }
-        
+        /* TopFROG Custom Components */
         .dashboard-placeholder {
-            background: #e2e8f0;
+            background: #ffffff;
             border-radius: var(--border-radius);
             min-height: 400px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #64748b;
-            font-weight: 600;
-            border: 2px dashed #cbd5e1;
+            color: var(--text-color);
+            font-weight: var(--font-weight-six);
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 30px rgba(40, 65, 129, 0.08); /* Uses MSC Primary Color with opacity */
         }
-        .hero-features { font-size: 0.85rem; color: var(--text-color); font-weight: 600; }
 
-        /* Cards */
         .feature-card {
             background: #ffffff;
             border: 1px solid #e2e8f0;
@@ -100,6 +66,7 @@
             transition: transform 0.3s;
         }
         .feature-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.06); }
+        
         .icon-circle {
             width: 70px; height: 70px;
             background-color: var(--primary-color);
@@ -110,7 +77,6 @@
             margin: 0 auto 20px;
         }
 
-        /* Architecture Pipeline */
         .pipeline-box {
             background: #ffffff;
             border: 2px solid #e2e8f0;
@@ -119,67 +85,70 @@
             text-align: center;
             height: 100%;
         }
+        
         .pipeline-tag {
             background: var(--primary-color);
             color: #ffffff;
             border-radius: 4px;
             padding: 4px 12px;
-            font-weight: 600;
+            font-weight: var(--font-weight-six);
             display: inline-block;
             margin-bottom: 15px;
+            font-size: 14px;
         }
 
-        /* Footer CTA */
         .cta-section {
-            background: linear-gradient(135deg, var(--primary-color), #1a365d);
-            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary-color), #182755);
         }
 
-        /* Footer */
         footer { background-color: var(--primary-color); color: #ffffff; padding: 60px 0 20px; }
-        footer h6 { color: #ffffff; margin-bottom: 20px; font-weight: 600;}
-        footer ul { list-style: none; padding: 0; }
-        footer ul li { margin-bottom: 10px; }
-        footer a { color: #a0aec0; text-decoration: none; transition: 0.3s; }
-        footer a:hover { color: var(--secondary-color); }
+        footer h6 { color: #ffffff; margin-bottom: 20px; font-weight: var(--font-weight-six); font-size: var(--font-size-twenty-four);}
+        footer ul li a { color: #d1d5db; text-decoration: none; transition: 0.3s; font-size: 16px;}
+        footer ul li a:hover { color: var(--secondary-color); }
         .social-icon { color: #ffffff; font-size: 1.5rem; margin-right: 15px; }
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="/">
-                <img src="TopFROG-removebg 2.png" alt="TopFROG Logo">
-            </a>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav align-items-center">
-                    <li class="nav-item ms-3">
-                        <a class="btn-primary-dark" href="/application/login.html">Login</a>
-                    </li>
-                </ul>
+    <header class="main-header" style="background: #ffffff; padding: 15px 0; border-bottom: 1px solid #eee;">
+        <div class="custom-container">
+            <div class="header-inner d-flex justify-content-between align-items-center">
+                <div class="logo-and-menu">
+                    <a href="/">
+                        <img src="TopFROG-removebg 2.png" alt="TopFROG Logo" style="height: 50px;">
+                    </a>
+                </div>
+                <div class="right-box d-flex align-items-center">
+                    <ul class="d-none d-lg-flex mb-0 list-unstyled align-items-center me-4" style="gap: 20px;">
+                        <li><a href="#" style="color: var(--primary-color); font-weight: var(--font-weight-six); text-decoration: none;">Platform</a></li>
+                        <li><a href="#" style="color: var(--primary-color); font-weight: var(--font-weight-six); text-decoration: none;">Use Cases</a></li>
+                        <li><a href="#" style="color: var(--primary-color); font-weight: var(--font-weight-six); text-decoration: none;">Modules</a></li>
+                        <li><a href="#" style="color: var(--primary-color); font-weight: var(--font-weight-six); text-decoration: none;">About</a></li>
+                    </ul>
+                    <a href="/application/login.html" class="common-btn" style="padding: 10px 24px; font-size: 16px;">Login</a>
+                </div>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <section class="hero-section">
-        <div class="container">
+    <section class="common-section-top pb-5" style="background: radial-gradient(circle at top left, rgba(0, 191, 223, 0.05), transparent 50%);">
+        <div class="custom-container">
             <div class="row align-items-center">
-                <div class="col-lg-6 mb-5 mb-lg-0">
-                    <h1 class="hero-title">
+                <div class="col-lg-6 title-box mb-5 mb-lg-0">
+                    <h2 style="color: var(--primary-color); font-size: 3.5rem; font-weight: 700; line-height: 1.2; margin-bottom: var(--title-margin-bottom);">
                         AI-Driven <br>
-                        <span class="text-teal">Credit & Climate</span> <br>
+                        <span style="color: var(--secondary-color);">Credit & Climate</span> <br>
                         Intelligence for MFIs
-                    </h1>
-                    <p class="hero-subtitle">
+                    </h2>
+                    <p style="font-size: 1.2rem; margin-bottom: 40px;">
                         TopFROG helps microfinance institutions move from manual, reactive risk management to data-driven underwriting, early warning, and climate-smart portfolio decisions.
                     </p>
                     <div class="d-flex gap-3 mb-5">
-                        <a href="#" class="btn-primary-dark">Request Demo</a>
-                        <a href="/application/login.html" class="btn-outline-dark">Login</a>
+                        <a href="#" class="common-btn">Request Demo</a>
+                        <a href="/application/login.html" class="btn-outline-msc">Login</a>
                     </div>
                     
-                    <div class="row hero-features g-3">
+                    <div class="row g-3" style="font-weight: var(--font-weight-six); font-size: 15px;">
                         <div class="col-6 d-flex align-items-center gap-2">
                             <i class="fa fa-shield fa-lg text-dark-blue"></i>
                             <span>Built for MFIs<br>and inclusive lenders</span>
@@ -202,7 +171,7 @@
                 <div class="col-lg-6">
                     <div class="dashboard-placeholder">
                         <div class="text-center">
-                            <i class="fa fa-image fa-3x mb-3 d-block w-100"></i>
+                            <i class="fa fa-image fa-3x mb-3 d-block w-100" style="color: var(--primary-color);"></i>
                             [ Dashboard Mockup Image Placeholder ]
                         </div>
                     </div>
@@ -211,10 +180,10 @@
         </div>
     </section>
 
-    <section class="bg-light-gray py-5">
-        <div class="container py-4">
-            <div class="text-center mb-5">
-                <h2 style="color: var(--primary-color); font-weight: 700;">Solve today's biggest challenges</h2>
+    <section class="common-section bg-light-gray">
+        <div class="custom-container">
+            <div class="title-box text-center mb-5">
+                <h3 style="color: var(--primary-color); font-weight: 700;">Solve today's biggest challenges</h3>
                 <p>TopFROG turns complex data into clear, actionable intelligence.</p>
             </div>
             
@@ -222,176 +191,145 @@
                 <div class="col-md-6 col-lg-3">
                     <div class="feature-card">
                         <div class="icon-circle"><i class="fa fa-user"></i></div>
-                        <h5 style="color: var(--primary-color); font-weight: 600;">Smarter underwriting</h5>
-                        <p class="small mb-0">Assess borrowers with deeper insights for better approvals and lower defaults.</p>
+                        <h4 style="color: var(--primary-color); font-size: 20px; font-weight: var(--font-weight-six);">Smarter underwriting</h4>
+                        <p class="small mb-0 mt-2">Assess borrowers with deeper insights for better approvals and lower defaults.</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3">
                     <div class="feature-card">
                         <div class="icon-circle text-teal bg-white" style="border: 2px solid var(--secondary-color);"><i class="fa fa-tint"></i></div>
-                        <h5 style="color: var(--primary-color); font-weight: 600;">Climate-aware risk scoring</h5>
-                        <p class="small mb-0">Integrate climate hazards and exposure to strengthen portfolio resilience.</p>
+                        <h4 style="color: var(--primary-color); font-size: 20px; font-weight: var(--font-weight-six);">Climate-aware risk</h4>
+                        <p class="small mb-0 mt-2">Integrate climate hazards and exposure to strengthen portfolio resilience.</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3">
                     <div class="feature-card">
                         <div class="icon-circle"><i class="fa fa-bell"></i></div>
-                        <h5 style="color: var(--primary-color); font-weight: 600;">Early warning signals</h5>
-                        <p class="small mb-0">Detect emerging risks early and act before they impact your portfolio.</p>
+                        <h4 style="color: var(--primary-color); font-size: 20px; font-weight: var(--font-weight-six);">Early warning signals</h4>
+                        <p class="small mb-0 mt-2">Detect emerging risks early and act before they impact your portfolio.</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3">
                     <div class="feature-card">
                         <div class="icon-circle"><i class="fa fa-bar-chart"></i></div>
-                        <h5 style="color: var(--primary-color); font-weight: 600;">Actionable portfolio insights</h5>
-                        <p class="small mb-0">Visualize performance, monitor risk, and prioritize actions that drive impact.</p>
+                        <h4 style="color: var(--primary-color); font-size: 20px; font-weight: var(--font-weight-six);">Actionable insights</h4>
+                        <p class="small mb-0 mt-2">Visualize performance, monitor risk, and prioritize actions that drive impact.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-5">
-        <div class="container py-4 text-center">
-            <h2 class="mb-3" style="color: var(--primary-color); font-weight: 700;">A unified platform for risk & resilience</h2>
-            <p class="mb-5">TopFROG's modular architecture adapts to your needs and grows with you.</p>
+    <section class="common-section">
+        <div class="custom-container text-center">
+            <div class="title-box mb-5">
+                <h3 style="color: var(--primary-color); font-weight: 700;">A unified platform for risk & resilience</h3>
+                <p>TopFROG's modular architecture adapts to your needs and grows with you.</p>
+            </div>
             
-            <div class="row g-2 align-items-stretch justify-content-center">
+            <div class="row g-3 align-items-stretch justify-content-center">
                 <div class="col-md-2">
                     <div class="pipeline-box">
                         <span class="pipeline-tag">SES</span>
-                        <h6 style="color: var(--primary-color); font-weight: 600;">Structural<br>Exposure Score</h6>
-                        <p style="font-size: 0.75rem;">Evaluate borrower vulnerability using socio-economic factors.</p>
-                        <i class="fa fa-users fa-lg text-dark-blue mt-2"></i>
+                        <h5 style="color: var(--primary-color); font-weight: var(--font-weight-six); font-size: 16px;">Structural<br>Exposure Score</h5>
+                        <p style="font-size: 13px; line-height: 1.4;" class="mt-2">Evaluate borrower vulnerability using socio-economic factors.</p>
+                        <i class="fa fa-users fa-lg text-dark-blue mt-3"></i>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="pipeline-box">
                         <span class="pipeline-tag" style="background-color: var(--secondary-color);">CRS</span>
-                        <h6 style="color: var(--primary-color); font-weight: 600;">Climate<br>Risk Score</h6>
-                        <p style="font-size: 0.75rem;">Assess climate hazard exposure and sensitivity to risk.</p>
-                        <i class="fa fa-bolt fa-lg text-teal mt-2"></i>
+                        <h5 style="color: var(--primary-color); font-weight: var(--font-weight-six); font-size: 16px;">Climate<br>Risk Score</h5>
+                        <p style="font-size: 13px; line-height: 1.4;" class="mt-2">Assess climate hazard exposure and sensitivity to risk.</p>
+                        <i class="fa fa-bolt fa-lg text-teal mt-3"></i>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="pipeline-box">
                         <span class="pipeline-tag">EWS</span>
-                        <h6 style="color: var(--primary-color); font-weight: 600;">Early Warning<br>System</h6>
-                        <p style="font-size: 0.75rem;">Monitor indicators and triggers to detect risks early.</p>
-                        <i class="fa fa-bell-o fa-lg text-dark-blue mt-2"></i>
+                        <h5 style="color: var(--primary-color); font-weight: var(--font-weight-six); font-size: 16px;">Early Warning<br>System</h5>
+                        <p style="font-size: 13px; line-height: 1.4;" class="mt-2">Monitor indicators and triggers to detect risks early.</p>
+                        <i class="fa fa-bell-o fa-lg text-dark-blue mt-3"></i>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="pipeline-box">
                         <span class="pipeline-tag" style="background-color: var(--secondary-color);">ARE</span>
-                        <h6 style="color: var(--primary-color); font-weight: 600;">Action &<br>Resilience Engine</h6>
-                        <p style="font-size: 0.75rem;">Recommend actions, simulate scenarios, build resilience.</p>
-                        <i class="fa fa-leaf fa-lg text-teal mt-2"></i>
+                        <h5 style="color: var(--primary-color); font-weight: var(--font-weight-six); font-size: 16px;">Action &<br>Resilience Engine</h5>
+                        <p style="font-size: 13px; line-height: 1.4;" class="mt-2">Recommend actions, simulate scenarios, build resilience.</p>
+                        <i class="fa fa-leaf fa-lg text-teal mt-3"></i>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="pipeline-box">
                         <span class="pipeline-tag">Dashboard</span>
-                        <h6 style="color: var(--primary-color); font-weight: 600;">Executive<br>Dashboard</h6>
-                        <p style="font-size: 0.75rem;">Track KPIs, drill down insights, and make data decisions.</p>
-                        <i class="fa fa-pie-chart fa-lg text-dark-blue mt-2"></i>
+                        <h5 style="color: var(--primary-color); font-weight: var(--font-weight-six); font-size: 16px;">Executive<br>Dashboard</h5>
+                        <p style="font-size: 13px; line-height: 1.4;" class="mt-2">Track KPIs, drill down insights, and make data decisions.</p>
+                        <i class="fa fa-pie-chart fa-lg text-dark-blue mt-3"></i>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="bg-light-gray py-5">
-        <div class="container py-4 text-center">
-            <h2 class="mb-5" style="color: var(--primary-color); font-weight: 700;">How it works</h2>
-            <div class="row d-flex justify-content-center text-start">
-                <div class="col-md-3 d-flex align-items-start gap-3">
-                    <div class="text-white rounded-circle d-flex align-items-center justify-content-center" style="background-color: var(--primary-color); width: 30px; height: 30px; flex-shrink: 0;">1</div>
-                    <div>
-                        <h6 style="color: var(--primary-color); font-weight: 600;">Ingest lender data</h6>
-                        <p class="small">Connect core systems and external data sources securely.</p>
-                    </div>
-                </div>
-                <div class="col-md-1 text-center d-none d-md-block"> <i class="fa fa-arrow-right mt-2" style="color: #cbd5e1;"></i> </div>
-                
-                <div class="col-md-3 d-flex align-items-start gap-3">
-                    <div class="text-white rounded-circle d-flex align-items-center justify-content-center" style="background-color: var(--primary-color); width: 30px; height: 30px; flex-shrink: 0;">2</div>
-                    <div>
-                        <h6 style="color: var(--primary-color); font-weight: 600;">Generate risk intelligence</h6>
-                        <p class="small">AI models analyze credit, climate, and behavioral signals.</p>
-                    </div>
-                </div>
-                <div class="col-md-1 text-center d-none d-md-block"> <i class="fa fa-arrow-right mt-2" style="color: #cbd5e1;"></i> </div>
-
-                <div class="col-md-3 d-flex align-items-start gap-3">
-                    <div class="text-white rounded-circle d-flex align-items-center justify-content-center" style="background-color: var(--primary-color); width: 30px; height: 30px; flex-shrink: 0;">3</div>
-                    <div>
-                        <h6 style="color: var(--primary-color); font-weight: 600;">Enable better decisions</h6>
-                        <p class="small">Act on actionable insights to reduce risk and improve outcomes.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="cta-section">
-        <div class="container">
+    <section class="common-section cta-section">
+        <div class="custom-container">
             <div class="row align-items-center">
-                <div class="col-lg-8">
-                    <h2 class="text-white mb-3" style="font-size: 2.5rem; font-weight: 700;">
+                <div class="col-lg-8 title-box">
+                    <h2 class="text-white mb-3" style="font-size: 2.5rem; font-weight: 700; line-height: 1.2;">
                         Make lending <span class="text-teal">smarter</span>, <span class="text-teal">faster</span>,<br>
                         and more <span class="text-teal">climate-resilient</span>.
                     </h2>
-                    <p class="text-white fs-5" style="opacity: 0.85;">
-                        Join forward-thinking MFIs and lenders using TopFROG<br>to build stronger, more resilient portfolios.
+                    <p class="text-white mt-3" style="opacity: 0.85; font-size: 18px;">
+                        Join forward-thinking MFIs and lenders using TopFROG to build stronger, more resilient portfolios.
                     </p>
                 </div>
                 <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
-                    <a href="#" class="btn-orange fs-5">Talk to Us <i class="fa fa-arrow-right ms-2"></i></a>
+                    <a href="#" class="common-btn">Talk to Us <i class="fa fa-arrow-right ms-2"></i></a>
                 </div>
             </div>
         </div>
     </section>
 
     <footer>
-        <div class="container">
+        <div class="custom-container">
             <div class="row mb-5">
                 <div class="col-lg-3 mb-4 mb-lg-0">
                     <img src="TopFROG-removebg 2.png" alt="TopFROG Logo" style="height: 50px; filter: brightness(0) invert(1);" class="mb-3">
                 </div>
                 <div class="col-lg-2 col-6">
                     <h6>Platform</h6>
-                    <ul>
-                        <li><a href="#">Overview</a></li>
-                        <li><a href="#">Security</a></li>
-                        <li><a href="#">Integrations</a></li>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#">Overview</a></li>
+                        <li class="mb-2"><a href="#">Security</a></li>
+                        <li class="mb-2"><a href="#">Integrations</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-2 col-6">
                     <h6>Use Cases</h6>
-                    <ul>
-                        <li><a href="#">Credit Risk</a></li>
-                        <li><a href="#">Climate Risk</a></li>
-                        <li><a href="#">Portfolio Monitoring</a></li>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#">Credit Risk</a></li>
+                        <li class="mb-2"><a href="#">Climate Risk</a></li>
+                        <li class="mb-2"><a href="#">Portfolio Monitoring</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-2 col-6">
+                <div class="col-lg-2 col-6 mt-4 mt-lg-0">
                     <h6>Modules</h6>
-                    <ul>
-                        <li><a href="#">SES</a></li>
-                        <li><a href="#">CRS</a></li>
-                        <li><a href="#">EWS</a></li>
-                        <li><a href="#">ARE</a></li>
-                        <li><a href="#">Dashboard</a></li>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#">SES</a></li>
+                        <li class="mb-2"><a href="#">CRS</a></li>
+                        <li class="mb-2"><a href="#">EWS</a></li>
+                        <li class="mb-2"><a href="#">ARE</a></li>
+                        <li class="mb-2"><a href="#">Dashboard</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-3 col-6">
+                <div class="col-lg-3 col-6 mt-4 mt-lg-0">
                     <h6>About</h6>
-                    <ul class="mb-4">
-                        <li><a href="#">Company</a></li>
-                        <li><a href="#">Team</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Contact</a></li>
+                    <ul class="list-unstyled mb-4">
+                        <li class="mb-2"><a href="#">Company</a></li>
+                        <li class="mb-2"><a href="#">Team</a></li>
+                        <li class="mb-2"><a href="#">Careers</a></li>
+                        <li class="mb-2"><a href="#">Contact</a></li>
                     </ul>
                     <h6>Stay connected</h6>
                     <div class="d-flex mt-2">
@@ -400,7 +338,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row pt-3 mt-3" style="border-top: 1px solid rgba(255,255,255,0.2);">
+            <div class="row pt-4" style="border-top: 1px solid rgba(255,255,255,0.1);">
                 <div class="col-12 text-center text-md-end small" style="color: #a0aec0;">
                     © 2026 TopFROG. All rights reserved.
                 </div>
@@ -408,5 +346,6 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

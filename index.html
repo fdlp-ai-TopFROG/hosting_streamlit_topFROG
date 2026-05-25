@@ -12,167 +12,212 @@
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/msc-main.css">
     <link rel="stylesheet" href="css/homepage.css">
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        /* Force MSC Typography and overrides */
         body {
             font-family: var(--font-family) !important;
             color: var(--text-color);
             background-color: #ffffff;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
-        /* Bridge Styles: Mapping Wireframe Layout to MSC Variables */
+        /* --- FLUID HEADER FIX --- */
+        /* This listens to the scrollAddClass() function in your msc-custom.js */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #ffffff;
+            padding: 20px 0;
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border-bottom: 1px solid transparent;
+        }
+        .main-header.shrink {
+            padding: 10px 0 !important;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-bottom: 1px solid #eeeeee;
+        }
+        .main-header .logo-and-menu img {
+            height: 55px;
+            transition: all 0.4s ease;
+        }
+        .main-header.shrink .logo-and-menu img {
+            height: 42px !important;
+        }
+        
+        /* Push the hero section down so it doesn't hide behind the fixed header */
+        .hero-padding-fix {
+            padding-top: 130px; 
+        }
+
+        /* --- BRANDING --- */
         .text-teal { color: var(--secondary-color) !important; }
         .text-dark-blue { color: var(--primary-color) !important; }
         .bg-light-gray { background-color: var(--background-color); }
 
-        /* MSC Native Button Mimicry for Secondary Buttons */
         .btn-outline-msc {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             background-color: transparent;
             color: var(--primary-color);
             font-weight: var(--font-weight-six);
             border-radius: var(--border-radius);
             padding: 12px 30px;
             border: 2px solid var(--primary-color);
-            transition: 0.3s;
+            transition: all 0.3s ease;
             text-decoration: none;
             font-size: 18px;
         }
-        .btn-outline-msc:hover { background-color: var(--primary-color); color: #ffffff; }
+        .btn-outline-msc:hover { 
+            background-color: var(--primary-color); 
+            color: #ffffff; 
+            transform: translateY(-2px);
+        }
 
-        /* TopFROG Custom Components */
+        /* --- CARDS & WIDGETS --- */
         .dashboard-placeholder {
             background: #ffffff;
             border-radius: var(--border-radius);
-            min-height: 400px;
+            min-height: 450px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-color);
-            font-weight: var(--font-weight-six);
             border: 1px solid #e2e8f0;
-            box-shadow: 0 10px 30px rgba(40, 65, 129, 0.08); /* Uses MSC Primary Color with opacity */
+            box-shadow: 0 20px 40px rgba(40, 65, 129, 0.08); 
+            transition: transform 0.5s ease;
         }
+        .dashboard-placeholder:hover { transform: translateY(-5px); }
 
         .feature-card {
             background: #ffffff;
             border: 1px solid #e2e8f0;
             border-radius: var(--border-radius);
-            padding: 30px;
+            padding: 40px 30px;
             text-align: center;
             height: 100%;
-            transition: transform 0.3s;
+            transition: all 0.4s ease;
         }
-        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.06); }
+        .feature-card:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.06); 
+            border-color: var(--secondary-light-color);
+        }
         
         .icon-circle {
-            width: 70px; height: 70px;
+            width: 80px; height: 80px;
             background-color: var(--primary-color);
             color: #ffffff;
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.8rem;
-            margin: 0 auto 20px;
+            font-size: 2rem;
+            margin: 0 auto 25px;
+            transition: all 0.4s ease;
         }
+        .feature-card:hover .icon-circle { transform: scale(1.1); }
 
         .pipeline-box {
             background: #ffffff;
             border: 2px solid #e2e8f0;
             border-radius: var(--border-radius);
-            padding: 20px 10px;
+            padding: 30px 15px;
             text-align: center;
             height: 100%;
+            transition: all 0.3s ease;
         }
+        .pipeline-box:hover { border-color: var(--primary-color); box-shadow: 0 10px 20px rgba(0,0,0,0.04); }
         
         .pipeline-tag {
             background: var(--primary-color);
             color: #ffffff;
             border-radius: 4px;
-            padding: 4px 12px;
+            padding: 6px 16px;
             font-weight: var(--font-weight-six);
             display: inline-block;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             font-size: 14px;
         }
 
-        .cta-section {
-            background: linear-gradient(135deg, var(--primary-color), #182755);
-        }
+        .cta-section { background: linear-gradient(135deg, var(--primary-color), #182755); padding: 100px 0;}
 
-        footer { background-color: var(--primary-color); color: #ffffff; padding: 60px 0 20px; }
-        footer h6 { color: #ffffff; margin-bottom: 20px; font-weight: var(--font-weight-six); font-size: var(--font-size-twenty-four);}
-        footer ul li a { color: #d1d5db; text-decoration: none; transition: 0.3s; font-size: 16px;}
-        footer ul li a:hover { color: var(--secondary-color); }
-        .social-icon { color: #ffffff; font-size: 1.5rem; margin-right: 15px; }
+        footer { background-color: var(--primary-color); color: #ffffff; padding: 80px 0 30px; }
+        footer h6 { color: #ffffff; margin-bottom: 25px; font-weight: var(--font-weight-six); font-size: var(--font-size-twenty-four);}
+        footer ul li a { color: #d1d5db; text-decoration: none; transition: all 0.3s ease; font-size: 16px; display: inline-block; padding: 4px 0;}
+        footer ul li a:hover { color: var(--secondary-color); transform: translateX(5px); }
+        .social-icon { color: #ffffff; font-size: 1.8rem; margin-right: 20px; transition: all 0.3s ease; }
+        .social-icon:hover { color: var(--secondary-color); transform: translateY(-3px); }
     </style>
 </head>
 <body>
 
-    <header class="main-header" style="background: #ffffff; padding: 15px 0; border-bottom: 1px solid #eee;">
+    <header class="main-header">
         <div class="custom-container">
             <div class="header-inner d-flex justify-content-between align-items-center">
                 <div class="logo-and-menu">
                     <a href="/">
-                        <img src="TopFROG-removebg 2.png" alt="TopFROG Logo" style="height: 50px;">
+                        <img src="TopFROG-removebg 2.png" alt="TopFROG Logo">
                     </a>
                 </div>
                 <div class="right-box d-flex align-items-center">
-                    <ul class="d-none d-lg-flex mb-0 list-unstyled align-items-center me-4" style="gap: 20px;">
-                        <li><a href="#" style="color: var(--primary-color); font-weight: var(--font-weight-six); text-decoration: none;">Platform</a></li>
-                        <li><a href="#" style="color: var(--primary-color); font-weight: var(--font-weight-six); text-decoration: none;">Use Cases</a></li>
-                        <li><a href="#" style="color: var(--primary-color); font-weight: var(--font-weight-six); text-decoration: none;">Modules</a></li>
-                        <li><a href="#" style="color: var(--primary-color); font-weight: var(--font-weight-six); text-decoration: none;">About</a></li>
+                    <ul class="d-none d-lg-flex mb-0 list-unstyled align-items-center me-4" style="gap: 30px;">
+                        <li><a href="#" style="color: var(--primary-color); font-weight: var(--font-weight-six); text-decoration: none; font-size: 17px; transition: color 0.3s;" onmouseover="this.style.color='var(--secondary-color)'" onmouseout="this.style.color='var(--primary-color)'">Platform</a></li>
+                        <li><a href="#" style="color: var(--primary-color); font-weight: var(--font-weight-six); text-decoration: none; font-size: 17px; transition: color 0.3s;" onmouseover="this.style.color='var(--secondary-color)'" onmouseout="this.style.color='var(--primary-color)'">Use Cases</a></li>
+                        <li><a href="#" style="color: var(--primary-color); font-weight: var(--font-weight-six); text-decoration: none; font-size: 17px; transition: color 0.3s;" onmouseover="this.style.color='var(--secondary-color)'" onmouseout="this.style.color='var(--primary-color)'">Modules</a></li>
+                        <li><a href="#" style="color: var(--primary-color); font-weight: var(--font-weight-six); text-decoration: none; font-size: 17px; transition: color 0.3s;" onmouseover="this.style.color='var(--secondary-color)'" onmouseout="this.style.color='var(--primary-color)'">About</a></li>
                     </ul>
-                    <a href="/application/login.html" class="common-btn" style="padding: 10px 24px; font-size: 16px;">Login</a>
+                    <a href="/application/login.html" class="common-btn" style="padding: 12px 30px; font-size: 16px;">Login</a>
                 </div>
             </div>
         </div>
     </header>
 
-    <section class="common-section-top pb-5" style="background: radial-gradient(circle at top left, rgba(0, 191, 223, 0.05), transparent 50%);">
+    <section class="common-section-top hero-padding-fix pb-5" style="background: radial-gradient(circle at top left, rgba(0, 191, 223, 0.05), transparent 50%);">
         <div class="custom-container">
             <div class="row align-items-center">
-                <div class="col-lg-6 title-box mb-5 mb-lg-0">
-                    <h2 style="color: var(--primary-color); font-size: 3.5rem; font-weight: 700; line-height: 1.2; margin-bottom: var(--title-margin-bottom);">
+                <div class="col-lg-6 title-box mb-5 mb-lg-0" data-aos="fade-right" data-aos-duration="1000">
+                    <h2 style="color: var(--primary-color); font-size: 4rem; font-weight: 700; line-height: 1.15; margin-bottom: 30px;">
                         AI-Driven <br>
                         <span style="color: var(--secondary-color);">Credit & Climate</span> <br>
                         Intelligence for MFIs
                     </h2>
-                    <p style="font-size: 1.2rem; margin-bottom: 40px;">
+                    <p style="font-size: 1.25rem; margin-bottom: 40px; color: var(--text-color); max-width: 90%;">
                         TopFROG helps microfinance institutions move from manual, reactive risk management to data-driven underwriting, early warning, and climate-smart portfolio decisions.
                     </p>
                     <div class="d-flex gap-3 mb-5">
-                        <a href="#" class="common-btn">Request Demo</a>
+                        <a href="#" class="common-btn" style="font-size: 18px; padding: 14px 32px;">Request Demo</a>
                         <a href="/application/login.html" class="btn-outline-msc">Login</a>
                     </div>
                     
-                    <div class="row g-3" style="font-weight: var(--font-weight-six); font-size: 15px;">
-                        <div class="col-6 d-flex align-items-center gap-2">
-                            <i class="fa fa-shield fa-lg text-dark-blue"></i>
+                    <div class="row g-4" style="font-weight: var(--font-weight-six); font-size: 16px;">
+                        <div class="col-6 d-flex align-items-center gap-3">
+                            <i class="fa fa-shield fa-2x text-dark-blue"></i>
                             <span>Built for MFIs<br>and inclusive lenders</span>
                         </div>
-                        <div class="col-6 d-flex align-items-center gap-2">
-                            <i class="fa fa-line-chart fa-lg text-dark-blue"></i>
+                        <div class="col-6 d-flex align-items-center gap-3">
+                            <i class="fa fa-line-chart fa-2x text-dark-blue"></i>
                             <span>AI-powered<br>risk & climate intelligence</span>
                         </div>
-                        <div class="col-6 d-flex align-items-center gap-2">
-                            <i class="fa fa-leaf fa-lg text-dark-blue"></i>
+                        <div class="col-6 d-flex align-items-center gap-3">
+                            <i class="fa fa-leaf fa-2x text-dark-blue"></i>
                             <span>Climate-smart<br>& resilience focused</span>
                         </div>
-                        <div class="col-6 d-flex align-items-center gap-2">
-                            <i class="fa fa-lock fa-lg text-dark-blue"></i>
+                        <div class="col-6 d-flex align-items-center gap-3">
+                            <i class="fa fa-lock fa-2x text-dark-blue"></i>
                             <span>Secure, scalable<br>& enterprise grade</span>
                         </div>
                     </div>
                 </div>
                 
-                <div class="col-lg-6">
+                <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
                     <div class="dashboard-placeholder">
                         <div class="text-center">
-                            <i class="fa fa-image fa-3x mb-3 d-block w-100" style="color: var(--primary-color);"></i>
-                            [ Dashboard Mockup Image Placeholder ]
+                            <i class="fa fa-image fa-4x mb-3 d-block w-100" style="color: var(--primary-color); opacity: 0.5;"></i>
+                            <span style="font-size: 1.2rem; color: #94a3b8;">[ Dashboard Mockup Image Placeholder ]</span>
                         </div>
                     </div>
                 </div>
@@ -180,92 +225,92 @@
         </div>
     </section>
 
-    <section class="common-section bg-light-gray">
+    <section class="common-section bg-light-gray" style="padding: 100px 0;">
         <div class="custom-container">
-            <div class="title-box text-center mb-5">
-                <h3 style="color: var(--primary-color); font-weight: 700;">Solve today's biggest challenges</h3>
-                <p>TopFROG turns complex data into clear, actionable intelligence.</p>
+            <div class="title-box text-center mb-5" data-aos="fade-up">
+                <h3 style="color: var(--primary-color); font-weight: 700; font-size: 2.5rem; margin-bottom: 15px;">Solve today's biggest challenges</h3>
+                <p style="font-size: 1.2rem;">TopFROG turns complex data into clear, actionable intelligence.</p>
             </div>
             
             <div class="row g-4">
-                <div class="col-md-6 col-lg-3">
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
                     <div class="feature-card">
                         <div class="icon-circle"><i class="fa fa-user"></i></div>
-                        <h4 style="color: var(--primary-color); font-size: 20px; font-weight: var(--font-weight-six);">Smarter underwriting</h4>
-                        <p class="small mb-0 mt-2">Assess borrowers with deeper insights for better approvals and lower defaults.</p>
+                        <h4 style="color: var(--primary-color); font-size: 22px; font-weight: var(--font-weight-six);">Smarter underwriting</h4>
+                        <p class="mb-0 mt-3" style="font-size: 15px; color: var(--text-color);">Assess borrowers with deeper insights for better approvals and lower defaults.</p>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-3">
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
                     <div class="feature-card">
                         <div class="icon-circle text-teal bg-white" style="border: 2px solid var(--secondary-color);"><i class="fa fa-tint"></i></div>
-                        <h4 style="color: var(--primary-color); font-size: 20px; font-weight: var(--font-weight-six);">Climate-aware risk</h4>
-                        <p class="small mb-0 mt-2">Integrate climate hazards and exposure to strengthen portfolio resilience.</p>
+                        <h4 style="color: var(--primary-color); font-size: 22px; font-weight: var(--font-weight-six);">Climate-aware risk</h4>
+                        <p class="mb-0 mt-3" style="font-size: 15px; color: var(--text-color);">Integrate climate hazards and exposure to strengthen portfolio resilience.</p>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-3">
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
                     <div class="feature-card">
                         <div class="icon-circle"><i class="fa fa-bell"></i></div>
-                        <h4 style="color: var(--primary-color); font-size: 20px; font-weight: var(--font-weight-six);">Early warning signals</h4>
-                        <p class="small mb-0 mt-2">Detect emerging risks early and act before they impact your portfolio.</p>
+                        <h4 style="color: var(--primary-color); font-size: 22px; font-weight: var(--font-weight-six);">Early warning signals</h4>
+                        <p class="mb-0 mt-3" style="font-size: 15px; color: var(--text-color);">Detect emerging risks early and act before they impact your portfolio.</p>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-3">
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
                     <div class="feature-card">
                         <div class="icon-circle"><i class="fa fa-bar-chart"></i></div>
-                        <h4 style="color: var(--primary-color); font-size: 20px; font-weight: var(--font-weight-six);">Actionable insights</h4>
-                        <p class="small mb-0 mt-2">Visualize performance, monitor risk, and prioritize actions that drive impact.</p>
+                        <h4 style="color: var(--primary-color); font-size: 22px; font-weight: var(--font-weight-six);">Actionable insights</h4>
+                        <p class="mb-0 mt-3" style="font-size: 15px; color: var(--text-color);">Visualize performance, monitor risk, and prioritize actions that drive impact.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="common-section">
+    <section class="common-section" style="padding: 100px 0;">
         <div class="custom-container text-center">
-            <div class="title-box mb-5">
-                <h3 style="color: var(--primary-color); font-weight: 700;">A unified platform for risk & resilience</h3>
-                <p>TopFROG's modular architecture adapts to your needs and grows with you.</p>
+            <div class="title-box mb-5" data-aos="fade-up">
+                <h3 style="color: var(--primary-color); font-weight: 700; font-size: 2.5rem; margin-bottom: 15px;">A unified platform for risk & resilience</h3>
+                <p style="font-size: 1.2rem;">TopFROG's modular architecture adapts to your needs and grows with you.</p>
             </div>
             
             <div class="row g-3 align-items-stretch justify-content-center">
-                <div class="col-md-2">
+                <div class="col-md-2" data-aos="zoom-in" data-aos-delay="100">
                     <div class="pipeline-box">
                         <span class="pipeline-tag">SES</span>
-                        <h5 style="color: var(--primary-color); font-weight: var(--font-weight-six); font-size: 16px;">Structural<br>Exposure Score</h5>
-                        <p style="font-size: 13px; line-height: 1.4;" class="mt-2">Evaluate borrower vulnerability using socio-economic factors.</p>
-                        <i class="fa fa-users fa-lg text-dark-blue mt-3"></i>
+                        <h5 style="color: var(--primary-color); font-weight: var(--font-weight-six); font-size: 18px;">Structural<br>Exposure Score</h5>
+                        <p style="font-size: 14px; line-height: 1.5;" class="mt-3">Evaluate borrower vulnerability using socio-economic factors.</p>
+                        <i class="fa fa-users fa-2x text-dark-blue mt-3"></i>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2" data-aos="zoom-in" data-aos-delay="200">
                     <div class="pipeline-box">
                         <span class="pipeline-tag" style="background-color: var(--secondary-color);">CRS</span>
-                        <h5 style="color: var(--primary-color); font-weight: var(--font-weight-six); font-size: 16px;">Climate<br>Risk Score</h5>
-                        <p style="font-size: 13px; line-height: 1.4;" class="mt-2">Assess climate hazard exposure and sensitivity to risk.</p>
-                        <i class="fa fa-bolt fa-lg text-teal mt-3"></i>
+                        <h5 style="color: var(--primary-color); font-weight: var(--font-weight-six); font-size: 18px;">Climate<br>Risk Score</h5>
+                        <p style="font-size: 14px; line-height: 1.5;" class="mt-3">Assess climate hazard exposure and sensitivity to risk.</p>
+                        <i class="fa fa-bolt fa-2x text-teal mt-3"></i>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2" data-aos="zoom-in" data-aos-delay="300">
                     <div class="pipeline-box">
                         <span class="pipeline-tag">EWS</span>
-                        <h5 style="color: var(--primary-color); font-weight: var(--font-weight-six); font-size: 16px;">Early Warning<br>System</h5>
-                        <p style="font-size: 13px; line-height: 1.4;" class="mt-2">Monitor indicators and triggers to detect risks early.</p>
-                        <i class="fa fa-bell-o fa-lg text-dark-blue mt-3"></i>
+                        <h5 style="color: var(--primary-color); font-weight: var(--font-weight-six); font-size: 18px;">Early Warning<br>System</h5>
+                        <p style="font-size: 14px; line-height: 1.5;" class="mt-3">Monitor indicators and triggers to detect risks early.</p>
+                        <i class="fa fa-bell-o fa-2x text-dark-blue mt-3"></i>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2" data-aos="zoom-in" data-aos-delay="400">
                     <div class="pipeline-box">
                         <span class="pipeline-tag" style="background-color: var(--secondary-color);">ARE</span>
-                        <h5 style="color: var(--primary-color); font-weight: var(--font-weight-six); font-size: 16px;">Action &<br>Resilience Engine</h5>
-                        <p style="font-size: 13px; line-height: 1.4;" class="mt-2">Recommend actions, simulate scenarios, build resilience.</p>
-                        <i class="fa fa-leaf fa-lg text-teal mt-3"></i>
+                        <h5 style="color: var(--primary-color); font-weight: var(--font-weight-six); font-size: 18px;">Action &<br>Resilience Engine</h5>
+                        <p style="font-size: 14px; line-height: 1.5;" class="mt-3">Recommend actions, simulate scenarios, build resilience.</p>
+                        <i class="fa fa-leaf fa-2x text-teal mt-3"></i>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2" data-aos="zoom-in" data-aos-delay="500">
                     <div class="pipeline-box">
                         <span class="pipeline-tag">Dashboard</span>
-                        <h5 style="color: var(--primary-color); font-weight: var(--font-weight-six); font-size: 16px;">Executive<br>Dashboard</h5>
-                        <p style="font-size: 13px; line-height: 1.4;" class="mt-2">Track KPIs, drill down insights, and make data decisions.</p>
-                        <i class="fa fa-pie-chart fa-lg text-dark-blue mt-3"></i>
+                        <h5 style="color: var(--primary-color); font-weight: var(--font-weight-six); font-size: 18px;">Executive<br>Dashboard</h5>
+                        <p style="font-size: 14px; line-height: 1.5;" class="mt-3">Track KPIs, drill down insights, and make data decisions.</p>
+                        <i class="fa fa-pie-chart fa-2x text-dark-blue mt-3"></i>
                     </div>
                 </div>
             </div>
@@ -275,17 +320,17 @@
     <section class="common-section cta-section">
         <div class="custom-container">
             <div class="row align-items-center">
-                <div class="col-lg-8 title-box">
-                    <h2 class="text-white mb-3" style="font-size: 2.5rem; font-weight: 700; line-height: 1.2;">
+                <div class="col-lg-8 title-box" data-aos="fade-right">
+                    <h2 class="text-white mb-3" style="font-size: 3rem; font-weight: 700; line-height: 1.2;">
                         Make lending <span class="text-teal">smarter</span>, <span class="text-teal">faster</span>,<br>
                         and more <span class="text-teal">climate-resilient</span>.
                     </h2>
-                    <p class="text-white mt-3" style="opacity: 0.85; font-size: 18px;">
+                    <p class="text-white mt-3" style="opacity: 0.9; font-size: 1.2rem;">
                         Join forward-thinking MFIs and lenders using TopFROG to build stronger, more resilient portfolios.
                     </p>
                 </div>
-                <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
-                    <a href="#" class="common-btn">Talk to Us <i class="fa fa-arrow-right ms-2"></i></a>
+                <div class="col-lg-4 text-lg-end mt-5 mt-lg-0" data-aos="fade-left">
+                    <a href="#" class="common-btn" style="font-size: 20px; padding: 16px 40px;">Talk to Us <i class="fa fa-arrow-right ms-2"></i></a>
                 </div>
             </div>
         </div>
@@ -294,8 +339,9 @@
     <footer>
         <div class="custom-container">
             <div class="row mb-5">
-                <div class="col-lg-3 mb-4 mb-lg-0">
-                    <img src="TopFROG-removebg 2.png" alt="TopFROG Logo" style="height: 50px; filter: brightness(0) invert(1);" class="mb-3">
+                <div class="col-lg-3 mb-5 mb-lg-0">
+                    <img src="TopFROG-removebg 2.png" alt="TopFROG Logo" style="height: 60px; filter: brightness(0) invert(1);" class="mb-4">
+                    <p style="color: #a0aec0; font-size: 15px;">Empowering microfinance with AI-driven climate and credit intelligence.</p>
                 </div>
                 <div class="col-lg-2 col-6">
                     <h6>Platform</h6>
@@ -332,20 +378,34 @@
                         <li class="mb-2"><a href="#">Contact</a></li>
                     </ul>
                     <h6>Stay connected</h6>
-                    <div class="d-flex mt-2">
+                    <div class="d-flex mt-3">
                         <a href="#" class="social-icon"><i class="fa fa-linkedin"></i></a>
                         <a href="#" class="social-icon"><i class="fa fa-envelope"></i></a>
                     </div>
                 </div>
             </div>
             <div class="row pt-4" style="border-top: 1px solid rgba(255,255,255,0.1);">
-                <div class="col-12 text-center text-md-end small" style="color: #a0aec0;">
+                <div class="col-12 text-center text-md-end" style="color: #a0aec0; font-size: 14px;">
                     © 2026 TopFROG. All rights reserved.
                 </div>
             </div>
         </div>
     </footer>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script src="js/msc-custom.js"></script>
+    
+    <script>
+        AOS.init({
+            once: true,       // Animations only happen once as you scroll down
+            offset: 50,       // Trigger animations a bit earlier
+            easing: 'ease-out-cubic' // Smooth, corporate-style easing
+        });
+    </script>
 </body>
 </html>

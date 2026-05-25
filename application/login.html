@@ -3,14 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="/browser_icon_bg.png">
-    <title>TopFROG</title>
+    <link rel="icon" type="image/x-icon" href="../browser_icon_bg.png">
+    <title>TopFROG | App</title>
+    
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/msc-main.css">
+    <link rel="stylesheet" href="../css/variables.css">
+
     <style>
         body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; }
-        iframe { width: 100%; height: 100%; border: none; }
+        
+        /* The header height */
+        .app-header { height: 90px; background: #ffffff; border-bottom: 1px solid #eee; display: flex; align-items: center; }
+        
+        /* The Iframe now fills the remaining screen space */
+        iframe { width: 100%; height: calc(100% - 90px); border: none; }
+        
+        .navbar-brand img { height: 60px; }
     </style>
 </head>
 <body>
+
+    <header class="app-header">
+        <div class="custom-container" style="width: 100%;">
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="/">
+                    <img src="../TopFROG-removebg 2.png" alt="TopFROG Logo">
+                </a>
+                <a href="/" class="common-btn" style="padding: 8px 20px; font-size: 14px;">Back to Home</a>
+            </div>
+        </div>
+    </header>
+
     <iframe src="https://topfrog.streamlit.app/?embed=true" allow="camera; microphone; geolocation"></iframe>
+
 </body>
 </html>
